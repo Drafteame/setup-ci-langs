@@ -7,6 +7,9 @@ branding:
   color: blue
 
 inputs:
+  node:
+    description: 'Enable NodeJS'
+    default: 'false'
   node-working-directory:
     description: 'Node working directory'
     default: ''
@@ -16,12 +19,24 @@ inputs:
   node-version:
     description: 'Node version'
     default: '20'
+
+  go:
+    description: 'Enable Go'
+    default: 'true'
   go-version:
     description: 'Go version'
     default: '1.22.x'
+
+  python:
+    description: 'Enable Python'
+    default: 'false'
   python-version:
     description: 'Python version'
     default: '3.11.x'
+
+  pkl:
+    description: 'Enable PKL'
+    default: 'false'
   pkl-version:
     description: 'PKL version'
     default: '0.25.3'
@@ -30,11 +45,13 @@ runs:
   using: composite
   steps:
     - name: Setup Golang
+      if: ${{ inputs.go == 'true' }}
       uses: magnetikonline/action-golang-cache@main
       with:
         go-version: ${{ inputs.go-version }}
 
     - name: Setup NodeJS with cache
+      if: ${{ inputs.node == 'true' }}
       uses: Drafteame/node-cache-action@main
       with:
         node-version: ${{ inputs.node-version }}
@@ -42,11 +59,13 @@ runs:
         cache-key-suffix: ${{ inputs.node-cache-key-suffix }}
 
     - name: Setup Python
+      if: ${{ inputs.python == 'true' }}
       uses: actions/setup-python@main
       with:
         python-version: ${{ inputs.python-version }}
 
     - name: Stup PKL
+      if: ${{ inputs.pkl == 'true' }}
       uses: Drafteame/setup-pkl-action@main
       with:
         version: ${{ inputs.pkl-version }}
