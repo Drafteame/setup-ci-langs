@@ -46,7 +46,6 @@ Set of actions to install and configure different languages and tools.
 
 ### GIT
 
-| Input                   | Description             | Default |
-|-------------------------|-------------------------|---------|
-| git                     | Enable GIT              | false   |
-| git-version             | GIT version             | 2.9.5   |
+| Input       | Description             | Default |
+|-------------|-------------------------|---------|
+| gitcmd      | Enable GIT              | false   |

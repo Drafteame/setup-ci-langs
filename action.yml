@@ -41,7 +41,7 @@ inputs:
     description: 'PKL version'
     default: '0.25.3'
 
-  git:
+  gitcmd:
     description: 'Enable Git'
     default: 'false'
 
@@ -68,14 +68,14 @@ runs:
       with:
         python-version: ${{ inputs.python-version }}
 
-    - name: Stup PKL
+    - name: Setup PKL
       if: ${{ inputs.pkl == 'true' }}
       uses: Drafteame/setup-pkl-action@main
       with:
         version: ${{ inputs.pkl-version }}
 
     - name: Setup Git
-      if: ${{ inputs.git == 'true' }}
+      if: ${{ inputs.gitcmd == 'true' }}
       shell: bash
       run: |
         if ! [ -x "$(command -v git)" ]; then
