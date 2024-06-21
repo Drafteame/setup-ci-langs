@@ -10,6 +10,7 @@ Set of actions to install and configure different languages and tools.
 | Go       | 1.22.x          |
 | Python   | 3.11.x          |
 | PKL      | 0.25.3          |
+| GIT      | 2.9.5           |
 
 ## Action Inputs
 
@@ -42,3 +43,10 @@ Set of actions to install and configure different languages and tools.
 |-------------------------|-------------------------|---------|
 | pkl                     | Enable PKL              | false   |
 | pkl-version             | PKL version             | 0.25.3  |
+
+### GIT
+
+| Input                   | Description             | Default |
+|-------------------------|-------------------------|---------|
+| git                     | Enable GIT              | false   |
+| git-version             | GIT version             | 2.9.5   |

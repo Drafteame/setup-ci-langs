@@ -41,6 +41,10 @@ inputs:
     description: 'PKL version'
     default: '0.25.3'
 
+  git:
+    description: 'Enable Git'
+    default: 'false'
+
 runs:
   using: composite
   steps:
@@ -69,4 +73,15 @@ runs:
       uses: Drafteame/setup-pkl-action@main
       with:
         version: ${{ inputs.pkl-version }}
+
+    - name: Setup Git
+      if: ${{ inputs.git == 'true' }}
+      shell: bash
+      run: |
+        if ! [ -x "$(command -v git)" ]; then
+          sudo apt-get install git -y
+        else
+          echo "Git already installed..."
+        fi
+      
 
