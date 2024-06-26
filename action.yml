@@ -39,14 +39,10 @@ inputs:
     default: 'false'
   pkl-version:
     description: 'PKL version'
-    default: '0.25.3'
+    default: '0.26.0'
 
   gitcmd:
     description: 'Enable Git'
-    default: 'false'
-  
-  curl:
-    description: 'Enable Curl'
     default: 'false'
 
 runs:
@@ -87,14 +83,3 @@ runs:
         else
           echo "Git already installed..."
         fi
-    
-    - name: Install curl
-      if: ${{ inputs.curl == 'true' }}
-      shell: bash
-      run: |
-        if ! [ -x "$(command -v curl)" ]; then
-          sudo apt-get install curl -y
-        else
-          echo "curl already installed..."
-        fi
-
