@@ -74,7 +74,7 @@ runs:
 
     - name: Setup PKL
       if: ${{ inputs.pkl == 'true' }}
-      uses: Drafteame/setup-pkl-action@main
+      uses: Drafteame/setup-pkl-action@chore/use-sudo
       with:
         version: ${{ inputs.pkl-version }}
 
