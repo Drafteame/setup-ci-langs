@@ -34,20 +34,20 @@ inputs:
     description: 'Python version'
     default: '3.11.x'
 
+  gitcmd:
+    description: 'Enable Git'
+    default: 'false'
+
+  curl:
+    description: 'Enable Curl'
+    default: 'false'
+
   pkl:
     description: 'Enable PKL'
     default: 'false'
   pkl-version:
     description: 'PKL version'
     default: '0.25.3'
-
-  gitcmd:
-    description: 'Enable Git'
-    default: 'false'
-  
-  curl:
-    description: 'Enable Curl'
-    default: 'false'
 
 runs:
   using: composite
@@ -72,12 +72,6 @@ runs:
       with:
         python-version: ${{ inputs.python-version }}
 
-    - name: Setup PKL
-      if: ${{ inputs.pkl == 'true' }}
-      uses: Drafteame/setup-pkl-action@chore/use-sudo
-      with:
-        version: ${{ inputs.pkl-version }}
-
     - name: Setup Git
       if: ${{ inputs.gitcmd == 'true' }}
       shell: bash
@@ -98,3 +92,8 @@ runs:
           echo "curl already installed..."
         fi
 
+    - name: Setup PKL
+      if: ${{ inputs.pkl == 'true' }}
+      uses: Drafteame/setup-pkl-action@chore/use-sudo
+      with:
+        version: ${{ inputs.pkl-version }}
