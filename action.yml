@@ -7,10 +7,6 @@ branding:
   color: blue
 
 inputs:
-  gitcmd:
-    description: 'Enable Git'
-    default: 'false'
-
   node:
     description: 'Enable NodeJS'
     default: 'false'
@@ -24,9 +20,6 @@ inputs:
     description: 'Node version'
     default: '20'
 
-  go:
-    description: 'Enable Go'
-    default: 'true'
   go-version:
     description: 'Go version'
     default: '1.22.x'
@@ -37,6 +30,10 @@ inputs:
   python-version:
     description: 'Python version'
     default: '3.11.x'
+
+  curl:
+    description: 'Enable Curl'
+    default: 'false'
 
   pkl:
     description: 'Enable PKL'
@@ -76,6 +73,17 @@ runs:
       uses: actions/setup-python@main
       with:
         python-version: ${{ inputs.python-version }}
+
+    - name: Install curl
+      if: ${{ inputs.curl == 'true' }}
+      shell: bash
+      run: |
+        if ! [ -x "$(command -v curl)" ]; then
+          sudo apt-get update
+          sudo apt-get install curl -y
+        else
+          echo "curl already installed..."
+        fi
 
     - name: Setup PKL
       if: ${{ inputs.pkl == 'true' }}
