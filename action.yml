@@ -43,7 +43,7 @@ inputs:
     default: 'false'
   pkl-version:
     description: 'PKL version'
-    default: '0.25.3'
+    default: '0.26.0'
 
 runs:
   using: composite
@@ -82,7 +82,3 @@ runs:
       uses: Drafteame/setup-pkl-action@main
       with:
         version: ${{ inputs.pkl-version }}
-
-
-      
-
