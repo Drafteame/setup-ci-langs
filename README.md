@@ -14,6 +14,11 @@ Set of actions to install and configure different languages and tools.
 
 ## Action Inputs
 
+### General
+| Input      | Description             | Default |
+|------------|-------------------------|---------|
+| enable-all | Enable all languages    | false   |
+
 ### Node
 
 | Input                   | Description             | Default |
