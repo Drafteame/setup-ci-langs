@@ -20,9 +20,6 @@ inputs:
     description: 'Node version'
     default: '20'
 
-  go:
-    description: 'Enable Go'
-    default: 'true'
   go-version:
     description: 'Go version'
     default: '1.22.x'
@@ -41,13 +38,18 @@ inputs:
     description: 'PKL version'
     default: '0.26.0'
 
-  gitcmd:
-    description: 'Enable Git'
-    default: 'false'
-
 runs:
   using: composite
   steps:
+    - name: Setup Git
+      shell: bash
+      run: |
+        if ! [ -x "$(command -v git)" ]; then
+          sudo apt-get install git -y
+        else
+          echo "Git already installed..."
+        fi
+
     - name: Setup Golang
       if: ${{ inputs.go == 'true' }}
       uses: magnetikonline/action-golang-cache@main
@@ -73,13 +75,3 @@ runs:
       uses: Drafteame/setup-pkl-action@main
       with:
         version: ${{ inputs.pkl-version }}
-
-    - name: Setup Git
-      if: ${{ inputs.gitcmd == 'true' }}
-      shell: bash
-      run: |
-        if ! [ -x "$(command -v git)" ]; then
-          sudo apt-get install git -y
-        else
-          echo "Git already installed..."
-        fi
