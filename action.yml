@@ -31,10 +31,6 @@ inputs:
     description: 'Python version'
     default: '3.11.x'
 
-  curl:
-    description: 'Enable Curl'
-    default: 'false'
-
   pkl:
     description: 'Enable PKL'
     default: 'false'
@@ -73,17 +69,6 @@ runs:
       uses: actions/setup-python@main
       with:
         python-version: ${{ inputs.python-version }}
-
-    - name: Install curl
-      if: ${{ inputs.curl == 'true' }}
-      shell: bash
-      run: |
-        if ! [ -x "$(command -v curl)" ]; then
-          sudo apt-get update
-          sudo apt-get install curl -y
-        else
-          echo "curl already installed..."
-        fi
 
     - name: Setup PKL
       if: ${{ inputs.pkl == 'true' }}
