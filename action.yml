@@ -7,6 +7,10 @@ branding:
   color: blue
 
 inputs:
+  enable-all:
+    description: 'Enable all'
+    default: 'false'
+
   node:
     description: 'Enable NodeJS'
     default: 'false'
@@ -20,6 +24,9 @@ inputs:
     description: 'Node version'
     default: '20'
 
+  go:
+    description: 'Enable Golang'
+    default: 'true'
   go-version:
     description: 'Go version'
     default: '1.22.x'
@@ -29,7 +36,10 @@ inputs:
     default: 'false'
   python-version:
     description: 'Python version'
-    default: '3.11.x'
+    default: '3.12.x'
+  python-poetry-version:
+    description: 'Poetry version'
+    default: '1.8.3'
 
   pkl:
     description: 'Enable PKL'
@@ -51,13 +61,13 @@ runs:
         fi
 
     - name: Setup Golang
-      if: ${{ inputs.go == 'true' }}
+      if: ${{ inputs.go == 'true' || inputs.enable-all == 'true'}}
       uses: magnetikonline/action-golang-cache@main
       with:
         go-version: ${{ inputs.go-version }}
 
     - name: Setup NodeJS with cache
-      if: ${{ inputs.node == 'true' }}
+      if: ${{ inputs.node == 'true' || inputs.enable-all == 'true'}}
       uses: Drafteame/node-cache-action@main
       with:
         node-version: ${{ inputs.node-version }}
@@ -65,13 +75,19 @@ runs:
         cache-key-suffix: ${{ inputs.node-cache-key-suffix }}
 
     - name: Setup Python
-      if: ${{ inputs.python == 'true' }}
+      if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
       uses: actions/setup-python@main
       with:
         python-version: ${{ inputs.python-version }}
 
+    - name: Setup Poetry
+      if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
+      uses: abatilo/actions-poetry@v2
+      with:
+        poetry-version: ${{ inputs.python-poetry-version }}
+
     - name: Setup PKL
-      if: ${{ inputs.pkl == 'true' }}
+      if: ${{ inputs.pkl == 'true' || inputs.enable-all == 'true'}}
       uses: Drafteame/setup-pkl-action@main
       with:
         version: ${{ inputs.pkl-version }}
