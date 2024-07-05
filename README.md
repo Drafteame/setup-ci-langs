@@ -4,13 +4,13 @@ Set of actions to install and configure different languages and tools.
 
 ## Available Languages
 
-| Language | Default Version |
-|----------|-----------------|
-| NodeJS   | 20              |
-| Go       | 1.22.x          |
-| Python   | 3.11.x          |
-| PKL      | 0.25.3          |
-| GIT      | 2.9.5           |
+| Language | Default Version | Comments                           |
+|----------|-----------------|------------------------------------|
+| NodeJS   | 20              |                                    |
+| Go       | 1.22.x          |                                    |
+| Python   | 3.11.x          | Install poetry when enabled        |
+| PKL      | 0.25.3          |                                    |
+| GIT      | 2.9.5           | Always try to install if not found |
 
 ## Action Inputs
 
@@ -35,17 +35,12 @@ Set of actions to install and configure different languages and tools.
 | Input                   | Description             | Default |
 |-------------------------|-------------------------|---------|
 | python                  | Enable Python           | false   |
-| python-version          | Python version          | 3.11.x  |
+| python-version          | Python version          | 3.12.x  |
+| python-poetry-version   | Poetry version          | 1.8.3   |
 
 ### PKL
 
 | Input                   | Description             | Default |
 |-------------------------|-------------------------|---------|
 | pkl                     | Enable PKL              | false   |
-| pkl-version             | PKL version             | 0.25.3  |
-
-### GIT
-
-| Input       | Description             | Default |
-|-------------|-------------------------|---------|
-| gitcmd      | Enable GIT              | false   |
+| pkl-version             | PKL version             | 0.26.0  |

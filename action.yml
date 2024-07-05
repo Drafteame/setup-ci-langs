@@ -20,6 +20,9 @@ inputs:
     description: 'Node version'
     default: '20'
 
+  go:
+    description: 'Enable Golang'
+    default: 'true'
   go-version:
     description: 'Go version'
     default: '1.22.x'
@@ -29,7 +32,10 @@ inputs:
     default: 'false'
   python-version:
     description: 'Python version'
-    default: '3.11.x'
+    default: '3.12.x'
+  python-poetry-version:
+    description: 'Poetry version'
+    default: '1.8.3'
 
   pkl:
     description: 'Enable PKL'
@@ -69,6 +75,12 @@ runs:
       uses: actions/setup-python@main
       with:
         python-version: ${{ inputs.python-version }}
+
+    - name: Setup Poetry
+      if: ${{ inputs.python == 'true' }}
+      uses: abatilo/actions-poetry@v2
+      with:
+        poetry-version: ${{ inputs.python-poetry-version }}
 
     - name: Setup PKL
       if: ${{ inputs.pkl == 'true' }}
