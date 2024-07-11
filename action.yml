@@ -55,6 +55,7 @@ runs:
       shell: bash
       run: |
         if ! [ -x "$(command -v git)" ]; then
+          sudo apt-get update
           sudo apt-get install git -y
         else
           echo "Git already installed..."
