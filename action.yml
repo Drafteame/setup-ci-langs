@@ -78,8 +78,11 @@ runs:
     # POC
     - name: Install poetry
       if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
-      run: pipx install poetry==${{ inputs.python-poetry-version }}
-    
+      uses: abatilo/actions-poetry@v2
+      with:
+        poetry-version: ${{ inputs.python-poetry-version }}
+
+
     - if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
       uses: actions/setup-python@v5
       with:
