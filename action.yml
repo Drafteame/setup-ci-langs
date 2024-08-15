@@ -89,8 +89,8 @@ runs:
       shell: bash
       if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
       run: |
-        echo "PATH=$PATH:/home/runner/.local/bin" >> $GITHUB_ENV
-        echo "PATH=$PATH:$HOME/.poetry/bin" >> $GITHUB_ENV
+        export PATH="$HOME/.local/bin:$PATH"
+        echo "PATH=$PATH" >> $GITHUB_ENV
 
     - name: Verify poetry.lock exists
       shell: bash
