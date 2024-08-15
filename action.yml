@@ -96,6 +96,7 @@ runs:
       shell: bash
       run: |
         if [ ! -f "poetry.lock" ]; then
+          sudo chmod +x $HOME/.local/bin/poetry
           echo "poetry.lock file not found"
           exit 1
         fi
