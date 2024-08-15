@@ -92,6 +92,7 @@ runs:
         echo "PATH=$PATH:/home/runner/.local/bin" >> $GITHUB_ENV
 
     - name: Verify poetry.lock exists
+      shell: bash
       run: |
         if [ ! -f "poetry.lock" ]; then
           echo "poetry.lock file not found"
