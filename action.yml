@@ -85,7 +85,7 @@ runs:
     
     - name: Source bashrc
       if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
-      run: source /root/.bashrc
+      run: sudo source /root/.bashrc
       shell: bash
 
     # - name: Add poetry to path 
