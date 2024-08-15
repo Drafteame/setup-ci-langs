@@ -51,7 +51,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Setup Git and Pip and Build Essential
+    - name: Setup Git and Pip and Build Essential 
       shell: bash
       run: |
         if ! [ -x "$(command -v git)" ]; then
