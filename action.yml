@@ -80,7 +80,7 @@ runs:
     # POC
     - name: Install poetry
       if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
-      uses: abatilo/actions-poetry@v2
+      uses: abatilo/actions-poetry@v3
       with:
         poetry-version: ${{ inputs.python-poetry-version }}
 
@@ -89,9 +89,7 @@ runs:
       shell: bash
       if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
       run: |
-        export PATH="$HOME/.local/bin:$PATH"
-        echo "PATH=$PATH" >> $GITHUB_ENV
-        sudo chmod +x $HOME/.local/bin/poetry
+        echo "PATH=$PATH:/home/runner/.local/bin" >> $GITHUB_ENV
 
     - name: Verify poetry.lock exists
       shell: bash
