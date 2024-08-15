@@ -86,6 +86,7 @@ runs:
 
 
     - name: Add poetry to path
+      shell: bash
       if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
       run: |
         echo "PATH=$PATH:/home/runner/.local/bin" >> $GITHUB_ENV
