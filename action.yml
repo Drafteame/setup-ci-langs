@@ -51,7 +51,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Setup Git and Pip
+    - name: Setup Git and Pip and pipx
       shell: bash
       run: |
         if ! [ -x "$(command -v git)" ]; then
@@ -82,14 +82,30 @@ runs:
       uses: abatilo/actions-poetry@v2
       with:
         poetry-version: ${{ inputs.python-poetry-version }}
+    
+    - name: Source bashrc
+      if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
+      run: |
+        echo "source /root/.bashrc" > temp_script.sh
+        sudo bash temp_script.sh
+      shell: bash
 
+    - name: Check and Create poetry.lock
+      if: ${{ inputs.python == 'true' || inputs.enable-all == 'true' }}
+      run: |
+        if [ ! -f "poetry.lock" ]; then
+          echo "poetry.lock file not found. Creating..."
+          poetry lock
+        else
+          echo "poetry.lock file exists."
+        fi
+      shell: bash
 
     - if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
       uses: actions/setup-python@v5
       with:
-        python-version:  ${{ inputs.python-version }}
+        python-version: ${{ inputs.python-version }}
         cache: 'poetry'
-
 
     - name: Setup PKL
       if: ${{ inputs.pkl == 'true' || inputs.enable-all == 'true'}}
