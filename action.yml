@@ -96,20 +96,19 @@ runs:
     #   run: |
     #     echo "PATH=$PATH:/home/runner/.local/bin" >> $GITHUB_ENV
 
-    # - name: Verify poetry.lock exists
-    #   shell: bash
-    #   run: |
-    #     if [ ! -f "poetry.lock" ]; then
-    #       echo "poetry.lock file not found"
-    #       exit 1
-    #     fi
-
     - if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
       uses: actions/setup-python@v5
       with:
         python-version:  ${{ inputs.python-version }}
         cache: 'poetry'
 
+    - name: Verify poetry.lock exists
+      shell: bash
+      run: |
+        if [ ! -f "poetry.lock" ]; then
+          echo "poetry.lock file not found"
+          exit 1
+        fi
 
     - name: Setup PKL
       if: ${{ inputs.pkl == 'true' || inputs.enable-all == 'true'}}
