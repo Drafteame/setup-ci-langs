@@ -59,6 +59,7 @@ runs:
           sudo apt-get install git -y
           sudo apt-get install python3-pip -y
           python3 -m pip install --user pipx
+          python3 -m pipx ensurepath
         else
           echo "Git already installed..."
         fi
