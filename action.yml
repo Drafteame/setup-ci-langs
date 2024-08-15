@@ -85,7 +85,7 @@ runs:
         poetry-version: ${{ inputs.python-poetry-version }}
 
 
-    - name: Add poetry to path
+    - name: Add poetry to path 
       shell: bash
       if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
       run: |
