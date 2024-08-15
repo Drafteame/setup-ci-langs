@@ -58,8 +58,6 @@ runs:
           sudo apt-get update
           sudo apt-get install git -y
           sudo apt-get install python3-pip -y
-          python3 -m pip install --user pipx
-          python3 -m pipx ensurepath
         else
           echo "Git already installed..."
         fi
@@ -81,24 +79,28 @@ runs:
     # POC
     - name: Install poetry
       if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
-      uses: abatilo/actions-poetry@v3
+      uses: abatilo/actions-poetry@v2
       with:
         poetry-version: ${{ inputs.python-poetry-version }}
-
-
-    - name: Add poetry to path 
-      shell: bash
+    
+    - name: Source bashrc
       if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
-      run: |
-        echo "PATH=$PATH:/home/runner/.local/bin" >> $GITHUB_ENV
-
-    - name: Verify poetry.lock exists
+      run: source /root/.bashrc
       shell: bash
-      run: |
-        if [ ! -f "poetry.lock" ]; then
-          echo "poetry.lock file not found"
-          exit 1
-        fi
+
+    # - name: Add poetry to path 
+    #   shell: bash
+    #   if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
+    #   run: |
+    #     echo "PATH=$PATH:/home/runner/.local/bin" >> $GITHUB_ENV
+
+    # - name: Verify poetry.lock exists
+    #   shell: bash
+    #   run: |
+    #     if [ ! -f "poetry.lock" ]; then
+    #       echo "poetry.lock file not found"
+    #       exit 1
+    #     fi
 
     - if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
       uses: actions/setup-python@v5
