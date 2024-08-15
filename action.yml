@@ -89,7 +89,14 @@ runs:
       shell: bash
       if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
       run: |
-        echo "export PATH=$PATH:/home/runner/.local/bin" >> $GITHUB_ENV
+        echo "PATH=$PATH:/home/runner/.local/bin" >> $GITHUB_ENV
+
+    - name: Verify poetry.lock exists
+      run: |
+        if [ ! -f "poetry.lock" ]; then
+          echo "poetry.lock file not found"
+          exit 1
+        fi
 
     - if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
       uses: actions/setup-python@v5
