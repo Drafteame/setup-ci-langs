@@ -91,12 +91,12 @@ runs:
       run: |
         export PATH="$HOME/.local/bin:$PATH"
         echo "PATH=$PATH" >> $GITHUB_ENV
+        sudo chmod +x $HOME/.local/bin/poetry
 
     - name: Verify poetry.lock exists
       shell: bash
       run: |
         if [ ! -f "poetry.lock" ]; then
-          sudo chmod +x $HOME/.local/bin/poetry
           echo "poetry.lock file not found"
           exit 1
         fi
