@@ -99,7 +99,7 @@ runs:
         else
           echo "poetry.lock file exists."
         fi
-    shell: bash
+      shell: bash
 
     - if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
       uses: actions/setup-python@v5
