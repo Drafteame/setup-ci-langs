@@ -53,7 +53,7 @@ runs:
   steps:
     - name: Setup Golang
       if: ${{ inputs.go == 'true' || inputs.enable-all == 'true'}}
-      uses: magnetikonline/action-golang-cache@main
+      uses: Drafteame/go-cache-action@main
       with:
         go-version: ${{ inputs.go-version }}
 
