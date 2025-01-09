@@ -22,7 +22,7 @@ inputs:
     default: ''
   node-version:
     description: 'Node version'
-    default: '22'
+    default: '18'
 
   go:
     description: 'Enable Golang'

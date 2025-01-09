@@ -6,7 +6,7 @@ Set of actions to install and configure different languages and tools.
 
 | Language | Default Version | Comments                           |
 |----------|-----------------|------------------------------------|
-| NodeJS   | 22              |                                    |
+| NodeJS   | 18              |                                    |
 | Go       | 1.22.x          |                                    |
 | Python   | 3.11.x          | Install poetry when enabled        |
 | PKL      | 0.25.3          |                                    |
