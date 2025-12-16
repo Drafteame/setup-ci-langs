@@ -64,13 +64,6 @@ runs:
         node-version: ${{ inputs.node-version }}
         working-directory: ${{ inputs.node-working-directory }}
         cache-key-suffix: ${{ inputs.node-cache-key-suffix }}
-    
-    - name: Install poetry
-      if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
-      uses: abatilo/actions-poetry@v2
-      with:
-        poetry-version: ${{ inputs.python-poetry-version }}
-
 
     - if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
       uses: useblacksmith/setup-python@v6
@@ -78,6 +71,11 @@ runs:
         python-version:  ${{ inputs.python-version }}
         cache: 'poetry'
 
+    - name: Install poetry
+      if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
+      uses: abatilo/actions-poetry@v2
+      with:
+        poetry-version: ${{ inputs.python-poetry-version }}
 
     - name: Setup PKL
       if: ${{ inputs.pkl == 'true' || inputs.enable-all == 'true'}}
