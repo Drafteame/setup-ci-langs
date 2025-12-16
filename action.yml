@@ -66,10 +66,9 @@ runs:
         cache-key-suffix: ${{ inputs.node-cache-key-suffix }}
 
     - if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
-      uses: useblacksmith/setup-python@v6
+      uses: actions/setup-python@v6
       with:
         python-version:  ${{ inputs.python-version }}
-        cache: 'poetry'
 
     - name: Install poetry
       if: ${{ inputs.python == 'true' || inputs.enable-all == 'true'}}
