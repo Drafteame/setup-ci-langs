@@ -53,9 +53,28 @@ runs:
   steps:
     - name: Setup Golang
       if: ${{ inputs.go == 'true' || inputs.enable-all == 'true'}}
-      uses: Drafteame/go-cache-action@main
+      uses: useblacksmith/setup-go@v6
       with:
         go-version: ${{ inputs.go-version }}
+        cache: false
+
+    - name: Get Go module cache path
+      if: ${{ inputs.go == 'true' || inputs.enable-all == 'true'}}
+      id: go-cache-paths
+      shell: bash
+      run: |
+        echo "module-cache=$(go env GOMODCACHE)" >> "$GITHUB_OUTPUT"
+        cacheKey="${{ runner.os }}-golang-"
+        echo "cache-key-restore=${cacheKey}" >> "$GITHUB_OUTPUT"
+        echo "cache-key=${cacheKey}${{ hashFiles('**/go.sum') }}" >> "$GITHUB_OUTPUT"
+
+    - name: Cache Go modules
+      if: ${{ inputs.go == 'true' || inputs.enable-all == 'true'}}
+      uses: useblacksmith/cache@v5
+      with:
+        path: ${{ steps.go-cache-paths.outputs.module-cache }}
+        key: ${{ steps.go-cache-paths.outputs.cache-key }}
+        restore-keys: ${{ steps.go-cache-paths.outputs.cache-key-restore }}
 
     - name: Setup NodeJS with cache
       if: ${{ inputs.node == 'true' || inputs.enable-all == 'true'}}
