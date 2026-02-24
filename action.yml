@@ -41,6 +41,10 @@ inputs:
     description: 'Poetry version'
     default: '2.2.1'
 
+  upload-cache:
+    description: 'Upload cache after restore (set to false for read-only restore)'
+    default: 'true'
+
   pkl:
     description: 'Enable PKL'
     default: 'false'
@@ -69,8 +73,16 @@ runs:
         echo "cache-key=${cacheKey}${{ hashFiles('**/go.sum') }}" >> "$GITHUB_OUTPUT"
 
     - name: Cache Go modules
-      if: ${{ inputs.go == 'true' || inputs.enable-all == 'true'}}
+      if: ${{ (inputs.go == 'true' || inputs.enable-all == 'true') && inputs.upload-cache == 'true' }}
       uses: useblacksmith/cache@v5
+      with:
+        path: ${{ steps.go-cache-paths.outputs.module-cache }}
+        key: ${{ steps.go-cache-paths.outputs.cache-key }}
+        restore-keys: ${{ steps.go-cache-paths.outputs.cache-key-restore }}
+
+    - name: Restore Go modules cache (read-only)
+      if: ${{ (inputs.go == 'true' || inputs.enable-all == 'true') && inputs.upload-cache != 'true' }}
+      uses: useblacksmith/cache/restore@v5
       with:
         path: ${{ steps.go-cache-paths.outputs.module-cache }}
         key: ${{ steps.go-cache-paths.outputs.cache-key }}
